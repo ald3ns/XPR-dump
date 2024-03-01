@@ -1,0 +1,37 @@
+private rule _fat
+{
+    strings:
+        $a = { CA FE BA BE }
+
+    condition:
+        $a at 0 and uint32(4) < 0x14000000
+}
+
+private rule _macho
+{
+    strings:
+        $ = { CE FA ED FE }
+        $ = { CF FA ED FE }
+        $ = { FE ED FA CE }
+        $ = { FE ED FA CF }
+
+    condition:
+        for any of them: ($ at 0) or _fat
+}
+
+rule macos_greenacre
+{
+    strings:
+        $a1 = "_dispatch_async"
+        $a2 = /\/Library\/LaunchDaemons\/.{1,20}\.plist/
+        $a3 = /\/Library\/LaunchAgents\/.{1,20}\.plist/
+        $b1 = "CDDSMacBaseInfo"
+        $b2 = "http://cgi1.apnic.net/cgi-bin/my-ip.php"
+        $b3 = "%@/MGD/"
+        $c1 = "DriveCreds"
+        $c2 = "getDriveToMemory"
+        $c3 = "checkDriveCmdFileList"
+
+    condition:
+        _macho and all of ($a*) and any of ($b*) and 2 of ($c*) and filesize < 5MB
+}
