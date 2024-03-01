@@ -1,0 +1,18 @@
+[+] KEY IDENTIFIED: 0x323a32313a313900
+/Applications/3CX Desktop App.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libffmpeg.dylib
+~/Library/Application Support/3CX Desktop App/.main_storage
+~/Library/Application Support/3CX Desktop App/UpdateAgent
+
+rule macos_rankstank
+{
+    strings:
+        $injected_func = "_run_avcodec"
+        $xor_decrypt = { 80 b4 04 ?? ?? 00 00 7a }
+        $stringA = "%s/.main_storage"
+        $stringB = ".session-lock"
+        $stringC = "%s/UpdateAgent"
+    condition:
+        2 of them
+}
+
+kMDItemDisplayName == 'libffmpeg.dylib'

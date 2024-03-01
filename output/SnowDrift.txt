@@ -1,0 +1,71 @@
+[+] KEY IDENTIFIED: 0x323a32313a313800
+*/Library/Preferences/com.apple.iTunesInfo*.plist
+/Library/Preferences/com.apple.iTunesInfo.plist
+/Library/Preferences/com.apple.iTunesInfo29.plist
+com.apple.WebKit.WebContent+com.apple.Safari/com.apple.speech.speechsynthesisd/webcontent.dylib
+/Library/Logs/DiagnosticReports/.Analytics-Journal.core_analytics
+/Library/Application Support/Apple/Fonts/iWork/.Standard.ttc
+/Library/WebServer/share/httpd/manual/WindowServD]{
+~/Library/Application Support/com.apple.spotlight/Resources_V3/.CrashRep
+~/Library/Containers/com.apple.Notes/Data/Library/.CFUserTextDec_i^fifl
+~/Library/Containers/com.apple.FaceTime/Data/Library/windowserver
+~/Library/Containers/com.apple.languageassetd/loginwindow
+~/Library/LaunchAgents/.com.apple.softwareupdateWygbp|
+~/Library/ApplicationSupport/SyncServices/softwareupdate
+~/Library/Logs/imis.log
+WindowServer
+windowserver
+loginwindow
+.Standar
+.CrashRep
+.CFUserTextDecoding
+Pw~j
+
+        private rule mach_magic
+        {
+            condition:
+                uint32(0) == 0xfeedface
+                or uint32(0) == 0xcefaedfe
+        }
+
+        private rule mach64_magic
+        {
+            condition:
+                uint32(0) == 0xfeedfacf
+                or uint32(0) == 0xcffaedfe
+        }
+
+        private rule fat_mach_magic
+        {
+            condition:
+                uint32(0) == 0xcafebabe
+                or uint32(0) == 0xbebafeca
+        }
+
+        private rule fat_mach64_magic
+        {
+            condition:
+                uint32(0) == 0xcafebabf
+                or uint32(0) == 0xbfbafeca
+        }
+
+        private rule Macho
+        {
+            condition:
+                mach_magic
+                or mach64_magic
+                or fat_mach_magic
+                or fat_mach64_magic
+        }
+
+        rule multi_snowdrift {
+            strings:
+                $snowdrift_pcloud_object = /\/MainTask\/BaD\/.{10,100}\/pCloud.o/
+                $pcloud = "https://api.pcloud.com/getfilelink?path=%@&forcedownload=1"
+                $manage_cloud = "-[Management initCloud:access_token:]"
+                $globs = "*.doc;*.docx;*.xls;*.xlsx;*.ppt;*.pptx;*.hwp;*.hwpx;*.csv;*.pdf;*.rtf;*.amr;*.3gp;*.m4a;*.txt;*.mp3;*.jpg;*.eml;*.emlx"
+            condition:
+                Macho and 2 of them
+        }
+    
+Pw~j

@@ -1,0 +1,16 @@
+[+] KEY IDENTIFIED: 0x323a32313a313900
+
+    rule macos_redpine_implant {
+         strings:
+             $classA = "CRConfig"
+             $classD = "CRPwrInfo"
+             $classE = "CRGetFile"
+             $classF = "CRXDump"
+         condition:
+             all of them
+     }
+
+PrivateFramework]Kc
+/System/Library/Frameworks/CoreLocation.framework/CoreLocation
+/System/Library/Frameworks/AVFoundation.framework/AVFoundation
+/usr/lib/libsqlite3.dylib

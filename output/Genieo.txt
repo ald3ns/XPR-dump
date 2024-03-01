@@ -1,0 +1,35 @@
+[+] KEY IDENTIFIED: 0x323a32313a313900
+Genieo
+/Applications/InstallMac
+/Applications/Genieo.app
+~/Library/Application Support/IM.Installer
+cal
+~/Library/Application Support/Listchack
+~/Library/Application Support/Leperdvil
+~/Library/Application Support/JaSOm}bf
+/Applications/InKeepr.app
+~/Library/Application Support/NaSKajilp
+~/Library/Safari/Extensions/Nariabox.safariextz
+~/Library/Safari/Extensions/Perfetnight.safariexJMr
+~/Library/Safari/Extensions/Smokycap-2.safariextz
+~/Library/Safari/Extensions/Smokycap.safariextz
+~/Library/Safari/Extensions/Omnibar.safariextz
+~/Library/Safari/Extensions/GoldenBoy.safariextz
+~/Library/LaunchAgents/com.Installer.completer.download.plist
+~/Library/LaunchAgents/com.Installer.completer.ltvbit.plist
+~/Library/LaunchAgents/com.Installer.completer.update.plist
+~/Library/LaunchAgents/com.genieo.completer.download.plist
+~/Library/LaunchAgents/com.genieo.completer.ltvbit.plist
+~/Library/LaunchAgents/com.genieo.completer.update.plist
+~/Library/LaunchAgents/Listchack.download.plist
+~/Library/LaunchAgents/Listchack.ltvbit.plist
+~/Library/LaunchAgents/Listchack.update.plist
+~/Library/LaunchAgents/Leperdvil.download.plist
+~/Library/LaunchAgents/Leperdvil.ltvbit.plist
+~/Library/LaunchAgents/Leperdvil.update.plist
+~/Library/LaunchAgents/Javeview.download.plist
+~/Library/LaunchAgents/Javeview.ltvbit.plist
+~/Library/LaunchAgents/Javeview.update.plist
+~/Library/LaunchAgents/Nariabox.download.plist
+~/Library/LaunchAgents/Nariabox.ltvbit.plist
+~/Library/LaunchAgents/Nariabox.update.plist
