@@ -1,6 +1,8 @@
 # XPR-dump
 
-This repo contains all the supporting material for this blog post: https://alden.io/posts/secrets-of-xprotect/
+This repo contains all the supporting material for this blog post: https://alden.io/posts/secrets-of-xprotect/.
+
+Keep in mind that if you don't have a commercial Binary Ninja license, you won't be able to run the extractor headlessly. You can still run it from within the app via `File > Run Script...`.
 
 ## Repo Structure
 
