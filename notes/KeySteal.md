@@ -566,7 +566,7 @@ function expand(cdstr){
 
 ## Hashes
 
-| SHA256                                                           |
-| ---------------------------------------------------------------- |
-| 1cfeeae46aa58cacc226ba5abeece6f39af02ccbfff24e507db77e97383cbe1e |
-| 2dfb31a1a1c9f5667fedf895ebc9792abb3b64e51986ab6d94a1f3aec38edf0d |
+| SHA256                                                             |
+| ------------------------------------------------------------------ |
+| `1cfeeae46aa58cacc226ba5abeece6f39af02ccbfff24e507db77e97383cbe1e` |
+| `2dfb31a1a1c9f5667fedf895ebc9792abb3b64e51986ab6d94a1f3aec38edf0d` |
