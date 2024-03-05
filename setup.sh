@@ -21,7 +21,7 @@ echo "[+] Extracting configs..."
 for file in "$DEST_DIR"/*; do
     filename=$(basename "$file")
     echo "[+] Working on $filename..."
-    python3 config.py "$DEST_DIR/$filename" > "$OUTPUT_DIR/${filename#XProtectRemediator}.txt"
+    python3 xpr-dump.py "$DEST_DIR/$filename" > "$OUTPUT_DIR/${filename#XProtectRemediator}.txt"
     echo "[+] $filename extraction complete!"
 done
 
