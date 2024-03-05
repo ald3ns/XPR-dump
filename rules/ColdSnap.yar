@@ -122,11 +122,9 @@ rule macos_coldsnap_c_symbols {
         _macho and 4 of them
 }
 
-P}j
-
-    rule macos_coldsnap_config {
-        strings:
-            $beacon_url = "http"
-        condition:
-            $beacon_url at 0
-    }
+rule macos_coldsnap_config {
+    strings:
+        $beacon_url = "http"
+    condition:
+        $beacon_url at 0
+}

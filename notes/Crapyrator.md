@@ -1,5 +1,7 @@
 # Crapyrator
 
+IIRC these are
+
 `/Users/basharbachir/Downloads/IntelDownloads/IntealAllDownloads/tool2/Tool2/`
 
 Hrmmm... https://github.com/basharbachir

@@ -1,144 +1,144 @@
 rule sheepswap_variant_1 {
-        strings:
-            $x1 = "lastHeartbeat"
-            $x2 = "sessionGuid"
-            $x3 = "extensionId"
-            $x4 = "userGuid"
-        condition:
-            filesize < 200000 and all of them
-    }
-    rule sheepswap_variant_2 {
-        strings:
-            $x1 = { F3 0F 6F 54 F8 20 66 0F EB D0 F3 0F 6F 44 F8 30 66 0F EB C1 }
-            $x2 = "myDomain"
-            $x3 = "settingsManager"
-            $x4 = "poopi"
-        condition:
-            filesize < 200000 and all of them
-    }
-    rule sheepswap_variant_3 {
-        strings:
-            // Byte sequence from function 0x100006AAA
-            $x1 = { 49 FF C7 31 D2 4C 89 F8 48 F7 B5 E8 FE FF FF 48 3B 53 10 }
-            // Byte sequence from function 0x1000D1A7A
-            $x2 = { 48 BF 49 4F 50 6C 61 74 66 6F 48 BE 72 6D 55 55 49 44 00 EE}
-            // Byte sequence from function 0x100045530
-            $x3 = { 48 89 55 C8 0F B6 44 13 20 4C 8B B5 50 FF FF FF 48 8B 8D 58 FF FF FF 48 89 CA 48 C1 EA 3E 80 FA 01 74 2D }
-        condition:
-            // Yes, this filesize is larger per the MRTv3 remediation
-            filesize < 2000000 and all of them
-    }
-    rule macos_new_sheepswap
-    {
-        strings:
-            $x1 = "spmDomain"
-            $x2 = "extIdParam"
-            $x3 = "idParam"
-            $x4 = "loggingUrl"
-            $x5 = "srchProxyURL"
-            $x6 = "getLoggingUrl"
-            $x7 = "SafariExtensionViewController"
-            $x8 = "popoverViewController"
-        condition:
-            filesize < 500KB and all of them
-    }
-    rule macos_sheepswap_strings {
-        strings:
-            $x1 = "getStateOfSafariExtensionWithIdentifier:completionHandler:"
-            $x2 = "showPreferencesForExtensionWithIdentifier:completionHandler:"
-            $x3 = "initWithBase64EncodedString:options:"
-            $x4 = "setLaunchPath:"
-            $x5 = "shown"
-            $x6 = "enabled"
-            $x7 = "_swift"
-        condition:
-            filesize < 300KB and all of them
-    }
-    private rule Macho {
-        meta:
-            description = "private rule to match Mach-O binaries"
-        condition:
-            uint32(0) == 0xfeedface or uint32(0) == 0xcefaedfe or uint32(0) == 0xfeedfacf or uint32(0) == 0xcffaedfe or uint32(0) == 0xcafebabe or uint32(0) == 0xbebafeca
-    }
-    rule macos_sheepswap_randomized_bundleID {
-        strings:
-            $x_1 = /com\.[a-zA-Z]{4,}[0-9]{1,5}[a-zA-Z]{4,}/
-            $x_2 = /com\.[a-zA-Z]{0,}[0-9]{1,5}[a-zA-Z]{10,}/
-            $s_1 = "getStateOfSafariExtensionWithIdentifier:completionHandler:"
-            $s_2 = "showPreferencesForExtensionWithIdentifier:completionHandler:"
-            $s_3 = "initWithBase64EncodedString:options:"
-            $s_4 = "setLaunchPath:"
-            $ss = "SUPERSTR"
-            $sws = "_swift"
-        condition:
-            Macho and any of ($x_*) and (2 of ($s_*) or (any of ($s_*) and $ss)) and $sws and filesize < 1500KB
-    }
-    rule macos_sheepswap_new_bunldeID {
-        strings:
+    strings:
+        $x1 = "lastHeartbeat"
+        $x2 = "sessionGuid"
+        $x3 = "extensionId"
+        $x4 = "userGuid"
+    condition:
+        filesize < 200000 and all of them
+}
+rule sheepswap_variant_2 {
+    strings:
+        $x1 = { F3 0F 6F 54 F8 20 66 0F EB D0 F3 0F 6F 44 F8 30 66 0F EB C1 }
+        $x2 = "myDomain"
+        $x3 = "settingsManager"
+        $x4 = "poopi"
+    condition:
+        filesize < 200000 and all of them
+}
+rule sheepswap_variant_3 {
+    strings:
+        // Byte sequence from function 0x100006AAA
+        $x1 = { 49 FF C7 31 D2 4C 89 F8 48 F7 B5 E8 FE FF FF 48 3B 53 10 }
+        // Byte sequence from function 0x1000D1A7A
+        $x2 = { 48 BF 49 4F 50 6C 61 74 66 6F 48 BE 72 6D 55 55 49 44 00 EE}
+        // Byte sequence from function 0x100045530
+        $x3 = { 48 89 55 C8 0F B6 44 13 20 4C 8B B5 50 FF FF FF 48 8B 8D 58 FF FF FF 48 89 CA 48 C1 EA 3E 80 FA 01 74 2D }
+    condition:
+        // Yes, this filesize is larger per the MRTv3 remediation
+        filesize < 2000000 and all of them
+}
+rule macos_new_sheepswap
+{
+    strings:
+        $x1 = "spmDomain"
+        $x2 = "extIdParam"
+        $x3 = "idParam"
+        $x4 = "loggingUrl"
+        $x5 = "srchProxyURL"
+        $x6 = "getLoggingUrl"
+        $x7 = "SafariExtensionViewController"
+        $x8 = "popoverViewController"
+    condition:
+        filesize < 500KB and all of them
+}
+rule macos_sheepswap_strings {
+    strings:
+        $x1 = "getStateOfSafariExtensionWithIdentifier:completionHandler:"
+        $x2 = "showPreferencesForExtensionWithIdentifier:completionHandler:"
+        $x3 = "initWithBase64EncodedString:options:"
+        $x4 = "setLaunchPath:"
+        $x5 = "shown"
+        $x6 = "enabled"
+        $x7 = "_swift"
+    condition:
+        filesize < 300KB and all of them
+}
+private rule Macho {
+    meta:
+        description = "private rule to match Mach-O binaries"
+    condition:
+        uint32(0) == 0xfeedface or uint32(0) == 0xcefaedfe or uint32(0) == 0xfeedfacf or uint32(0) == 0xcffaedfe or uint32(0) == 0xcafebabe or uint32(0) == 0xbebafeca
+}
+rule macos_sheepswap_randomized_bundleID {
+    strings:
+        $x_1 = /com\.[a-zA-Z]{4,}[0-9]{1,5}[a-zA-Z]{4,}/
+        $x_2 = /com\.[a-zA-Z]{0,}[0-9]{1,5}[a-zA-Z]{10,}/
+        $s_1 = "getStateOfSafariExtensionWithIdentifier:completionHandler:"
+        $s_2 = "showPreferencesForExtensionWithIdentifier:completionHandler:"
+        $s_3 = "initWithBase64EncodedString:options:"
+        $s_4 = "setLaunchPath:"
+        $ss = "SUPERSTR"
+        $sws = "_swift"
+    condition:
+        Macho and any of ($x_*) and (2 of ($s_*) or (any of ($s_*) and $ss)) and $sws and filesize < 1500KB
+}
+rule macos_sheepswap_new_bunldeID {
+    strings:
 
-             $str_selector_1 = "getStateOfSafariExtensionWithIdentifier:completionHandler:"
-             $str_selector_2 = "showPreferencesForExtensionWithIdentifier:completionHandler:"
-             $str_swift = "_swift"
-             $common_1 = {0011223060293080015342544370105443701053425342534258447030601541}
-             $common_2 = {4152415241524152415241524252426023437030534470107010600F44700870}
+            $str_selector_1 = "getStateOfSafariExtensionWithIdentifier:completionHandler:"
+            $str_selector_2 = "showPreferencesForExtensionWithIdentifier:completionHandler:"
+            $str_swift = "_swift"
+            $common_1 = {0011223060293080015342544370105443701053425342534258447030601541}
+            $common_2 = {4152415241524152415241524252426023437030534470107010600F44700870}
 
-         condition:
-             Macho and all of ($str_*) and #str_swift > 84 and any of ($common_*) and filesize < 1500KB
-    }
-
-
-
-    rule hunt_macos_sheepswap_obfuscated_js {
-        strings:
-            $a = "arguments.callee.toString().split"
-            $b = "cidx < cdstr.length"
-            $c = "(str, base, offset)"
-            $d = "decompressFromBase64: function(b)"
-            $e = "decompressFromEncodedURIComponent: function(b)"
         condition:
-            any of them and filesize < 50KB
-    }
-    rule hunt_macos_sheepswap_strings {
-         strings:
-            $a = "srchProxyURL"
-            $b = "srchMatchData"
-            $c = "navHist"
-            $d = "matchDataTimer"
-        condition:
-            any of them and filesize < 50KB
-    }
+            Macho and all of ($str_*) and #str_swift > 84 and any of ($common_*) and filesize < 1500KB
+}
 
 
 
-    rule hunt_sheepswap_extension_obfuscation {
+rule hunt_macos_sheepswap_obfuscated_js {
+    strings:
+        $a = "arguments.callee.toString().split"
+        $b = "cidx < cdstr.length"
+        $c = "(str, base, offset)"
+        $d = "decompressFromBase64: function(b)"
+        $e = "decompressFromEncodedURIComponent: function(b)"
+    condition:
+        any of them and filesize < 50KB
+}
+rule hunt_macos_sheepswap_strings {
         strings:
-            $stringBefore = "_$sSS5index6beforeSS5IndexVAD_tF"
-            $stringAfter = "_$sSS5index5afterSS5IndexVAD_tF"
-            $stringCount = "_$sSS5countSivg"
-            $immStringMov = { 49 ?? ?? ?? ?? ?? 28 29 00 ee 49}
-            $extensionClass = "extension22SafariExtensionHandler"
-            $extensionSelector = "messageReceivedWithName:fromPage:userInfo:"
-        condition:
-            all of them
-    }
-    private rule Macho {
-        meta:
-            description = "private rule to match Mach-O binaries"
-        condition:
-            uint32(0) == 0xfeedface or uint32(0) == 0xcefaedfe or uint32(0) == 0xfeedfacf or uint32(0) == 0xcffaedfe or uint32(0) == 0xcafebabe or uint32(0) == 0xbebafeca
-    }
-    rule hunt_macos_sheepswap_randomized_bundleID {
-        strings:
-            $x_1 = /com\.[a-zA-Z]{4,}[0-9]{1,5}[a-zA-Z]{4,}/
-            $x_2 = /com\.[a-zA-Z]{0,}[0-9]{1,5}[a-zA-Z]{10,}/
-            $x_3 = /com\.[a-zA-Z]{12,}[0-9]{1,5}/
-            $x_4 = /com\.[0-9]{1,5}[a-zA-Z]{1,5}[0-9]{1,5}[a-zA-Z]{,12}/
-            $s_1 = "getStateOfSafariExtensionWithIdentifier:completionHandler:"
-            $s_2 = "showPreferencesForExtensionWithIdentifier:completionHandler:"
-            $s_3 = "initWithBase64EncodedString:options:"
-            $s_4 = "setLaunchPath:"
-            $ss = "SUPERSTR"
-            $sws = "_swift"
-        condition:
-            Macho and any of ($x_*) and (2 of ($s_*) or (any of ($s_*) and $ss)) and $sws and filesize < 1500KB
-    }
+        $a = "srchProxyURL"
+        $b = "srchMatchData"
+        $c = "navHist"
+        $d = "matchDataTimer"
+    condition:
+        any of them and filesize < 50KB
+}
+
+
+
+rule hunt_sheepswap_extension_obfuscation {
+    strings:
+        $stringBefore = "_$sSS5index6beforeSS5IndexVAD_tF"
+        $stringAfter = "_$sSS5index5afterSS5IndexVAD_tF"
+        $stringCount = "_$sSS5countSivg"
+        $immStringMov = { 49 ?? ?? ?? ?? ?? 28 29 00 ee 49}
+        $extensionClass = "extension22SafariExtensionHandler"
+        $extensionSelector = "messageReceivedWithName:fromPage:userInfo:"
+    condition:
+        all of them
+}
+private rule Macho {
+    meta:
+        description = "private rule to match Mach-O binaries"
+    condition:
+        uint32(0) == 0xfeedface or uint32(0) == 0xcefaedfe or uint32(0) == 0xfeedfacf or uint32(0) == 0xcffaedfe or uint32(0) == 0xcafebabe or uint32(0) == 0xbebafeca
+}
+rule hunt_macos_sheepswap_randomized_bundleID {
+    strings:
+        $x_1 = /com\.[a-zA-Z]{4,}[0-9]{1,5}[a-zA-Z]{4,}/
+        $x_2 = /com\.[a-zA-Z]{0,}[0-9]{1,5}[a-zA-Z]{10,}/
+        $x_3 = /com\.[a-zA-Z]{12,}[0-9]{1,5}/
+        $x_4 = /com\.[0-9]{1,5}[a-zA-Z]{1,5}[0-9]{1,5}[a-zA-Z]{,12}/
+        $s_1 = "getStateOfSafariExtensionWithIdentifier:completionHandler:"
+        $s_2 = "showPreferencesForExtensionWithIdentifier:completionHandler:"
+        $s_3 = "initWithBase64EncodedString:options:"
+        $s_4 = "setLaunchPath:"
+        $ss = "SUPERSTR"
+        $sws = "_swift"
+    condition:
+        Macho and any of ($x_*) and (2 of ($s_*) or (any of ($s_*) and $ss)) and $sws and filesize < 1500KB
+}
